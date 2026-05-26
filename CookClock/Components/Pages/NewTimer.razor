@@ -1,0 +1,33 @@
+﻿@using System.Timers
+<PageTitle>Home</PageTitle>
+<h4>@_currentCount</h4>
+<h4>@TimeLeft</h4>
+@if (_currentCount > totoalTime)
+{
+    _timer?.Stop();
+
+    <h3>Time is out</h3>
+}
+@code {
+    private int _currentCount;
+    private string TimeLeft = "00:00";
+    private System.Timers.Timer _timer;
+    private int totoalTime = 12;
+    private bool isRunning;
+    protected override void OnInitialized()
+    {
+        _timer = new();
+        _timer.Interval = 1000;
+        _timer.Elapsed += async (object? sender, ElapsedEventArgs e) =>
+        {
+            _currentCount++;
+
+            TimeLeft =
+                TimeSpan.FromSeconds(_currentCount)
+                .ToString(@"mm\:ss");
+
+            await InvokeAsync(StateHasChanged);
+        };
+        _timer.Enabled = true;
+    }
+}
