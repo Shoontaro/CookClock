@@ -5,8 +5,16 @@
              x:Class="CookClock.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!--<Color x:Key="Primary">#FFB703</Color>
+            <Color x:Key="Secondary">#1E1E1E</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor"
+                    Value="{StaticResource Primary}" />
 
-        <!--
+                <Setter Property="BarTextColor"
+                    Value="White" />
+            </Style>-->
+            <!--
             For information about styling .NET MAUI pages
             please refer to the documentation:
             https://go.microsoft.com/fwlink/?linkid=2282329
