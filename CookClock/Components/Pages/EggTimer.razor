@@ -1,0 +1,59 @@
+﻿@using CookClock.Services
+@implements IDisposable
+
+
+@inject EggTimerService Timer
+
+<h1>🥚 Таймер</h1>
+
+<TimerEgg
+    TotalSeconds="@Timer.TotalSeconds"
+    RemainingSeconds="@Timer.RemainingSeconds" />
+
+<div class="buttons">
+
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(300)">Всмятку (5 мин)</button>
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(420)"> В мешочек (7 мин)</button>
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(600)">Вкрутую (10 мин)</button>
+
+<br>
+    <button type="button" class="btn btn-secondary" @onclick="PauseResume">  @(Timer.IsPaused ? "Продолжить" : "Пауза")</button>
+    <button type="button" class="btn btn-danger" @onclick="Timer.Stop">Сброс</button>
+  
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Timer.StateChanged += Refresh;
+        Timer.Finished += OnFinished;
+    }
+
+    private void PauseResume()
+    {
+        if (Timer.IsPaused)
+            Timer.Resume();
+        else
+            Timer.Pause();
+    }
+
+    private void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async void OnFinished()
+    {
+        await MainThread.InvokeOnMainThreadAsync(async () =>
+        {
+            await Shell.Current.DisplayAlert("🥚 Готово",
+                "Яйцо сварилось!", "OK");
+        });
+    }
+
+    public void Dispose()
+    {
+        Timer.StateChanged -= Refresh;
+        Timer.Finished -= OnFinished;
+    }
+}
