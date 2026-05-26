@@ -1,0 +1,32 @@
+﻿<h1>🥚 Таймер для яиц</h1>
+
+<button @onclick="() => Start(300)">
+    Всмятку (5 мин)
+</button>
+
+<button @onclick="() => Start(420)">
+    В мешочек (7 мин)
+</button>
+
+<button @onclick="() => Start(600)">
+    Вкрутую (10 мин)
+</button>
+
+<h2>@TimeLeft</h2>
+
+@code {
+    private string TimeLeft = "00:00";
+
+    async Task Start(int seconds)
+    {
+        while (seconds > 0)
+        {
+            await Task.Delay(1000);
+            seconds--;
+
+            TimeLeft =
+                TimeSpan.FromSeconds(seconds)
+                .ToString(@"mm\:ss");
+        }
+    }
+}

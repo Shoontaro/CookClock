@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CookClock.Services;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
 
 using MudBlazor;
@@ -18,7 +19,7 @@ namespace CookClock
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            builder
+            builder //меняет цвет шапки и 
            .UseMauiApp<App>()
            .ConfigureLifecycleEvents(events =>
            {
@@ -43,6 +44,7 @@ namespace CookClock
            });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddSingleton<EggTimerService>();
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
