@@ -11,10 +11,10 @@ namespace CookClock.Services
     {
         private readonly Lock _lock = new();
 
-        private System.Timers.Timer? _timer;
+        private System.Timers.Timer? _timer; //системный таймер, тикает ежесекундно
 
-        private int _remainingSeconds;
-        private int _totalSeconds;
+        private int _remainingSeconds; //отсалось
+        private int _totalSeconds; //общее число секунд
         private bool _running;
         private bool _paused;
 
@@ -42,7 +42,7 @@ namespace CookClock.Services
                 _running = true;
                 _paused = false;
 
-                _timer = new System.Timers.Timer(1000);
+                _timer = new System.Timers.Timer(1000); //настройка частоты тика
                 _timer.Elapsed += OnTimerElapsed;
                 _timer.AutoReset = true;
                 _timer.Start();
@@ -60,9 +60,9 @@ namespace CookClock.Services
                 if (!_running || _paused)
                     return;
 
-                _remainingSeconds--;
+                _remainingSeconds--; //обратный отсчет
 
-                if (_remainingSeconds <= 0)
+                if (_remainingSeconds <= 0) //проверка на истечение времени
                 {
                     _remainingSeconds = 0;
                     completed = true;
@@ -133,6 +133,8 @@ namespace CookClock.Services
 
             _running = false;
             _paused = false;
+
+            _remainingSeconds = 0;
         }
 
         public void Dispose()
