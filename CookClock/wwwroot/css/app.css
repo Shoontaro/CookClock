@@ -70,53 +70,80 @@ h1:focus {
 .status-bar-safe-area {
     display: none;
 }
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
 
-.timer-container {
-    position: relative;
+.progress-ring {
     width: 280px;
     height: 280px;
-    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 1s linear;
+    box-shadow: 0 0 20px rgba(255,183,3,.15);
 }
 
-.timer-svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-}
-
-.timer-bg {
-    fill: none;
-    stroke: rgba(255,255,255,.08);
-    stroke-width: 10;
-}
-
-.timer-progress {
-    fill: none;
-    stroke: #ffb703;
-    stroke-width: 14;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear;
-    filter: drop-shadow(0 0 14px rgba(255,183,3,.45));
-}
-
-.timer-content {
-    position: absolute;
-    inset: 0;
+.inner-circle {
+    width: 235px;
+    height: 235px;
+    border-radius: 50%;
+    background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
 .egg-icon {
     font-size: 42px;
-    margin-bottom: 8px;
 }
 
 .time {
     font-size: 52px;
     font-weight: 700;
-    color: black;
+}
+
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+}
+
+.timer-svg {
+    transform: rotate(-90deg); /* Начинаем отсчет сверху */
+}
+
+.timer-background {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 10;
+}
+
+.timer-progress {
+    fill: none;
+    stroke: #4caf50;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.timer-text {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.timer-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
 
 @supports (-webkit-touch-callout: none) {

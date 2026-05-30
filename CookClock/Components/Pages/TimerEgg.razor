@@ -1,43 +1,48 @@
-﻿@using MudBlazor
+﻿<div class="timer-wrapper">
 
-<div class="timer-container">
-    <svg class="timer-svg" viewBox="0 0 220 220">
-       
-        <circle class="timer-bg"
-                cx="110"
-                cy="110"
-                r="@Radius" />
+    <div class="progress-ring"
+         style="@RingStyle">
 
-      
-        <circle class="timer-progress"
-                cx="110"
-                cy="110"
-                r="@Radius"
-                stroke-dasharray="@Circumference"
-                stroke-dashoffset="@StrokeOffset" />
-    </svg>
+        <div class="inner-circle">
 
-    <div class="timer-content">
-        <div class="egg-icon">🥚</div>
-        <div class="time">@FormattedTime</div>
+            <div class="egg-icon">🥚</div>
+
+            <div class="time">
+                @FormattedTime
+            </div>
+
+        </div>
     </div>
+
 </div>
 
 @code {
-
-    
-
-    [Parameter] public int TotalSeconds { get; set; } = 300;
+    [Parameter] public int TotalSeconds { get; set; }
     [Parameter] public int RemainingSeconds { get; set; }
 
     private double Radius => 90;
-    private double Circumference => 2 * Math.PI * Radius;
+
+    private double Circumference =>
+        2 * Math.PI * Radius;
 
     private double Progress =>
-        (double)RemainingSeconds / TotalSeconds;
+        TotalSeconds == 0
+            ? 0
+            : (double)RemainingSeconds / TotalSeconds;
 
     private double StrokeOffset =>
         Circumference * (1 - Progress);
+
+    private double ProgressPercent =>
+   TotalSeconds == 0
+       ? 0
+       : (double)RemainingSeconds /
+         TotalSeconds * 100;
+
+    private string RingStyle =>
+$"background: conic-gradient(" +
+$"#FFB703 {ProgressPercent}%, " +
+$"#2A2A2A {ProgressPercent}%);";
 
     private string FormattedTime =>
         TimeSpan.FromSeconds(RemainingSeconds)

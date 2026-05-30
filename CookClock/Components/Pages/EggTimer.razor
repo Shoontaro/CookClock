@@ -6,17 +6,20 @@
 
 <h1>🥚 Таймер</h1>
 
+<div class="buttons">
+
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(300)">Всмятку (5 мин)</button>
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(420)">В мешочек (7 мин)</button>
+    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(600)">Вкрутую (10 мин)</button>
+
+</div>
+
 <TimerEgg
     TotalSeconds="@Timer.TotalSeconds"
     RemainingSeconds="@Timer.RemainingSeconds" />
 
+
 <div class="buttons">
-
-    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(300)">Всмятку (5 мин)</button>
-    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(420)"> В мешочек (7 мин)</button>
-    <button type="button" class="btn btn-warning" @onclick="() => Timer.Start(600)">Вкрутую (10 мин)</button>
-
-<br>
     <button type="button" class="btn btn-secondary" @onclick="PauseResume">  @(Timer.IsPaused ? "Продолжить" : "Пауза")</button>
     <button type="button" class="btn btn-danger" @onclick="Timer.Stop">Сброс</button>
 </div>
